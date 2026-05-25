@@ -1,0 +1,8 @@
+# Generated STL exports — render from the .scad sources (see README)
+stl/
+
+# Internal render/validation artifacts
+.validate/
+
+# macOS
+.DS_Store
