@@ -15,11 +15,11 @@ L = inches(11.5); // 292.1 mm — long axis, exceeds the bed
 T = 4;            // baseplate thickness, mm
 LABEL = "7x11.5";
 
-SPLIT_AT = L / 2;
-DEPTH_A = SPLIT_AT;
-DEPTH_B = L - SPLIT_AT;
+SPLIT_AT     = L / 2;
+DEPTH_MALE   = SPLIT_AT;
+DEPTH_FEMALE = L - SPLIT_AT;
 
-// "preview" | "piece_a" | "piece_b"
+// "preview" | "piece_male" | "piece_female"
 RENDER = "preview";
 
 // Woven joint: tabs centered between adjacent grid X columns, each TAB_W wide.
@@ -32,42 +32,44 @@ N_HOLES_AT_SEAM = floor((W - 2*STUD_GRID_MARGIN) / STUD_GRID_SPACING + 1e-6) + 1
 function _tab_x(i) = STUD_GRID_MARGIN + (i + 0.5) * STUD_GRID_SPACING;
 SEAM_TAB_XS = [for (i = [0:N_HOLES_AT_SEAM - 2]) _tab_x(i)];
 
-module piece_a() {
+// Male half: carries the protruding finger tabs at the seam.
+module piece_male() {
     difference() {
         union() {
-            cube([W, DEPTH_A, T]);
-            translate([0, DEPTH_A, 0])
+            cube([W, DEPTH_MALE, T]);
+            translate([0, DEPTH_MALE, 0])
                 finger_tabs_at(SEAM_TAB_XS, TAB_W, T);
         }
-        // Global grid sockets clipped to piece_a's body Y range. Seam holes
-        // (at Y = DEPTH_A) are kept — they become half-circles in piece_a.
+        // Global grid sockets clipped to the male half's body Y range. Seam
+        // holes (at Y = DEPTH_MALE) are kept — they become half-circles here.
         intersection() {
             socket_grid_rect(W, L, stud_h=T);
             translate([0, 0, -EPS])
-                cube([W, DEPTH_A + EPS, T + 2*EPS]);
+                cube([W, DEPTH_MALE + EPS, T + 2*EPS]);
         }
     }
 }
 
-module piece_b() {
+// Female half: receives the tabs in matching slots at the seam.
+module piece_female() {
     difference() {
-        cube([W, DEPTH_B, T]);
+        cube([W, DEPTH_FEMALE, T]);
         finger_slots_at(SEAM_TAB_XS, TAB_W, T);
-        // Shifted global grid sockets, clipped to piece_b's local Y range.
-        // Seam holes (at Y_local = 0) become half-circles in piece_b that
-        // align with piece_a's halves when assembled.
+        // Shifted global grid sockets, clipped to the female half's local Y
+        // range. Seam holes (at Y_local = 0) become half-circles that align
+        // with the male half's halves when assembled.
         intersection() {
-            translate([0, -DEPTH_A, 0])
+            translate([0, -DEPTH_MALE, 0])
                 socket_grid_rect(W, L, stud_h=T);
             translate([0, -EPS, -EPS])
-                cube([W, DEPTH_B + EPS, T + 2*EPS]);
+                cube([W, DEPTH_FEMALE + EPS, T + 2*EPS]);
         }
     }
 }
 
-if (RENDER == "piece_a") piece_a();
-else if (RENDER == "piece_b") piece_b();
+if (RENDER == "piece_male") piece_male();
+else if (RENDER == "piece_female") piece_female();
 else {
-    piece_a();
-    translate([0, DEPTH_A, 0]) piece_b();
+    piece_male();
+    translate([0, DEPTH_MALE, 0]) piece_female();
 }
