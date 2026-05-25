@@ -41,9 +41,18 @@ openscad -o piece_male.stl   -D 'RENDER="piece_male"'   footprints/large_rect.sc
 openscad -o piece_female.stl -D 'RENDER="piece_female"' footprints/large_rect.scad
 ```
 
+Or render the whole table set at once with [`render_stls.sh`](render_stls.sh):
+
+```
+./render_stls.sh                     # write every piece into stl/
+OUT=/tmp/out ./render_stls.sh        # render into another directory
+OPENSCAD=/path/to/openscad ./render_stls.sh
+```
+
 ## Layout
 
 ```
+render_stls.sh    Render the whole table set to stl/
 lib/
   units.scad      Inch <-> mm, shared constants
   studs.scad      Stud/socket primitives, grid helpers
