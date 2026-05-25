@@ -76,10 +76,5 @@ render small_l_ruin_1.5x1.5 terrain/l_ruin.scad -D 'STYLE="small"' -D 'W=inches(
 render small_l_ruin_2x3     terrain/l_ruin.scad -D 'STYLE="small"' -D 'W=inches(3)'   -D 'D=inches(2)'
 render small_l_ruin_1.5x3   terrain/l_ruin.scad -D 'STYLE="small"' -D 'W=inches(3)'   -D 'D=inches(1.5)'
 
-echo "Calibration / test prints:"
-render test_block             terrain/test_block.scad
-render joinery_test_male      terrain/joinery_test.scad -D 'RENDER="piece_male"'
-render joinery_test_female    terrain/joinery_test.scad -D 'RENDER="piece_female"'
-
 echo
 echo "Done — rendered $count files into $OUT"

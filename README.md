@@ -65,23 +65,12 @@ footprints/
   long_line.scad
   short_line.scad
 terrain/
-  test_block.scad     Small block with hanging studs — validate the lock system
-  joinery_test.scad   Tiny two-piece plate for testing finger-joint fit
   barricade.scad      Crenellated barricade. STYLE="short" (~1.75", drive-over)
                       or "tall" (~5.4", blocks line of sight)
   l_ruin.scad         L-shaped ruin. STYLE="small" (under-2" solid L) or
                       "big" (>5" two-story with platform & Gothic windows).
                       Single piece.
 ```
-
-## First test prints
-
-Validate both the finger joinery and the stud/hole fit on cheap test pieces before committing to a full baseplate.
-
-1. **Joinery fit** — render `terrain/joinery_test.scad` as `piece_male` and `piece_female`, then print both (small, ~25 min total). The tabs should slide into the slots with light friction; superglue holds the seam. If it's too tight or sloppy, adjust `FINGER_TOL` in `lib/joinery.scad` by 0.05–0.1mm and reprint just these two pieces.
-2. **Stud/hole fit** — render and print `footprints/medium_rect.scad` (smallest real baseplate) and `terrain/test_block.scad`. Lay-flat the test block in your slicer so the studs point up. Studs should drop into baseplate holes with a snug press fit. If too tight or loose, adjust `STUD_TOL` in `lib/studs.scad` by 0.1mm and reprint just the test block.
-
-Once both fits are dialed in, commit to the full footprint set (see print quantities below).
 
 ## Print list
 
@@ -121,6 +110,6 @@ The full table set — 46 pieces. Render each from its `.scad` source (see *Rend
 
 ## Tuning
 
-All key dimensions live in `lib/` as named constants — stud diameter and height, socket clearance, finger depth and tolerance, grid spacing, baseplate thickness. Print the test block on a medium rectangle first; if the studs are too tight or too loose in the baseplate holes, adjust `STUD_TOL` in `lib/studs.scad` by 0.1mm and reprint.
+All key dimensions live in `lib/` as named constants — stud diameter and height, socket clearance, finger depth and tolerance, grid spacing, baseplate thickness. Before committing to the full set, print one small piece on its baseplate to check fit: if the studs are too tight or loose in the holes, adjust `STUD_TOL` in `lib/studs.scad` by 0.1mm; if the finger joints bind or feel sloppy, adjust `FINGER_TOL` in `lib/joinery.scad` by 0.05–0.1mm. Reprint just that piece.
 
 **Placement grid:** the stud grid is corner-anchored — the first hole sits 0.25" from the corner, then every 0.5" — using the identical lattice on every baseplate and terrain piece. Corner-align a piece to a baseplate corner and its studs drop into holes on any baseplate, including across split seams. Placement is quantized to the 0.5" grid rather than free-floating like real Lego; that's the intended trade-off for FDM-friendly tolerances.
