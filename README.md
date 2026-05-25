@@ -74,6 +74,42 @@ Validate both the finger joinery and the stud/hole fit on cheap test pieces befo
 
 Once both fits are dialed in, commit to the full footprint set (see print quantities below).
 
+## Print list
+
+The full table set — 46 pieces. Render each from its `.scad` source (see *Rendering a piece*); footprints over 256mm export as `piece_male` + `piece_female` halves.
+
+**Ruins** — `terrain/l_ruin.scad`
+
+| Qty | Size | `STYLE` |
+|---|---|---|
+| 2 | 4×5 | `big` (tall) |
+| 2 | 2.5×6 | `big` (tall) |
+| 2 | 5×6 | `big` (tall) |
+| 2 | 3×6 | `big` (tall) |
+| 2 | 1.5×1.5 | `small` (short) |
+| 2 | 2×3 | `small` (short) |
+| 4 | 1.5×3 | `small` (short) |
+
+**Barricades** — `terrain/barricade.scad`
+
+| Qty | Size | `STYLE` |
+|---|---|---|
+| 2 | 3×5 | `tall` |
+| 2 | 2×6 | `tall` |
+| 2 | 2.5×2.5 | `tall` |
+| 2 | 1.5×5 | `short` |
+| 4 | 0.5×3.5 | `short` |
+
+**Footprints** — `footprints/`
+
+| Qty | Size | Source |
+|---|---|---|
+| 4 | 2×6 (short line) | `short_line.scad` |
+| 2 | 2.5×10 (long line) | `long_line.scad` |
+| 4 | 4×6 (medium rect) | `medium_rect.scad` |
+| 2 male + 2 female | 7×11.5 (large rect) | `large_rect.scad` |
+| 2 male + 2 female | 2×11.5×8 (wedge) | `wedge_2x11.5x8.scad` |
+
 ## Tuning
 
 All key dimensions live in `lib/` as named constants — stud diameter and height, socket clearance, finger depth and tolerance, grid spacing, baseplate thickness. Print the test block on a medium rectangle first; if the studs are too tight or too loose in the baseplate holes, adjust `STUD_TOL` in `lib/studs.scad` by 0.1mm and reprint.
