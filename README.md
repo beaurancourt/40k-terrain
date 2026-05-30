@@ -83,7 +83,7 @@ The full table set — 46 pieces. Render each from its `.scad` source (see *Rend
 | 2 | 4×5 | `big` (tall) |
 | 2 | 2.5×6 | `big` (tall) |
 | 2 | 5×6 | `big` (tall) |
-| 2 | 3×6 | `big` (tall) |
+| 2 | 6×3 | `big` (tall) |
 | 2 | 1.5×1.5 | `small` (short) |
 | 2 | 2×3 | `small` (short) |
 | 4 | 1.5×3 | `small` (short) |
