@@ -78,15 +78,20 @@ The full table set — 46 pieces. Render each from its `.scad` source (see *Rend
 
 **Ruins** — `terrain/l_ruin.scad`
 
-| Qty | Size | `STYLE` |
-|---|---|---|
-| 2 | 4×5 | `big` (tall) |
-| 2 | 2.5×6 | `big` (tall) |
-| 2 | 5×6 | `big` (tall) |
-| 2 | 6×3 | `big` (tall) |
-| 2 | 1.5×1.5 | `small` (short) |
-| 2 | 2×3 | `small` (short) |
-| 4 | 1.5×3 | `small` (short) |
+The four `big` ruins are the official 40k 11e tournament footprints, named by
+their guide footprint pair (`AB`, `CD`, `EF`, `GH`) — print two of each. Sizes
+are **vertical × horizontal**, and each piece is embossed on an outer wall with
+its footprint pair for identification on the table.
+
+| File | Qty | Size (V×H) | `STYLE` |
+|---|---|---|---|
+| `ruin_AB` | 2 | 5×4 | `big` (tall) |
+| `ruin_CD` | 2 | 3×6 | `big` (tall) |
+| `ruin_EF` | 2 | 5×6 | `big` (tall) |
+| `ruin_GH` | 2 | 6.5×3 | `big` (tall) |
+| `small` | 2 | 1.5×1.5 | `small` (short) |
+| `small` | 2 | 2×3 | `small` (short) |
+| `small` | 4 | 1.5×3 | `small` (short) |
 
 **Barricades** — `terrain/barricade.scad`
 

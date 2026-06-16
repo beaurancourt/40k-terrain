@@ -7,7 +7,9 @@
 //                    with Gothic lancet windows. >5" tall.
 //
 // W, D = footprint dimensions in mm (bottom-wall length × left-wall length).
-// LABEL = optional debossed text on the bottom of the bottom wall.
+// LABEL = optional text (e.g. the guide footprint "GH") recessed into the
+//         bottom wall's outer face (the outside of the L), readable when the
+//         piece stands upright.
 
 include <../lib/units.scad>;
 include <../lib/studs.scad>;
@@ -33,7 +35,22 @@ WINDOW_H_RECT = 20;
 WINDOW_H_PEAK = 14;
 WINDOW_Z      = GROUND_H + PLATFORM_T + 12;
 
+LETTER_SIZE  = 28;   // height of the outside ID letter, mm
+LETTER_DEPTH = 1.0;  // depth of the recess, mm
+
 function _n_windows(wall_len) = max(2, floor(wall_len / 40));
+
+// Recess LABEL into the bottom wall's outer face (y=0), centered horizontally
+// at height zc. The face's outward normal is -Y, so the text reads upright
+// without mirroring. No-op when LABEL is empty.
+module wall_label(zc) {
+    if (LABEL != "")
+        translate([W/2, LETTER_DEPTH, zc])
+            rotate([90, 0, 0])
+                linear_extrude(height=LETTER_DEPTH + EPS)
+                    text(LABEL, size=LETTER_SIZE, halign="center",
+                         valign="center", font=LABEL_FONT);
+}
 
 module _gothic_pent(w, h_rect, h_peak) {
     polygon([[0,0], [w, 0], [w, h_rect], [w/2, h_rect+h_peak], [0, h_rect]]);
@@ -58,6 +75,7 @@ if (STYLE == "small") {
             cube([W, WALL_T, SMALL_HEIGHT]);
             cube([WALL_T, D, SMALL_HEIGHT]);
         }
+        wall_label(SMALL_HEIGHT / 2);
     }
     l_studs();
 } else {
@@ -85,6 +103,7 @@ if (STYLE == "small") {
                         linear_extrude(height=WALL_T + 2*EPS)
                             _gothic_pent(WINDOW_W, WINDOW_H_RECT, WINDOW_H_PEAK);
         }
+        wall_label(GROUND_H / 2);
     }
     l_studs();
 }
